@@ -1,6 +1,26 @@
 # GeoQ
-Plugin GeoQ QGis
 
-Modelación de escorrentia superficial
-# Instalación
-Descrage el zip....
+Automatización del procesamiento de cálculo de la escorrentía superficial bajo entorno S.I.G. en QGis 3.18®.
+
+## Descripción
+
+La modelización de fenómenos hidrológicos permite calcular o cuantifica la cantidad de precipitación de una tormenta que se infiltra o escurre superficialmente, teniendo en cuenta sus características de uso y cobertura del suelo y textura edáficas. GeoQ realiza esta modelación implementado la metodología del Número de Curva (NC) mencionado por el Soil Conservation Service.
+
+## Insumos
+Descargue y descomprima el archivo GeoQ.zip en la raíz C://
+En la carpeta encontrara archivos de simbología necesaria para los resultados y las tablas de consulta necesarias para el calculo de Numero de Curva (La tabla, según sea el caso, debe ser cargada al proyecto de QGis al momento de ejecutar el complemento)
+
+## Datos necesarios
+
+Se requiere de un valor de precipitación medio en milímetros para la zona de estudio
+Capa vectorial de uso y cobertura del suelo
+Capa vectorial de grupo hidrológico del suelo
+
+_Las capas vectoriales debes están estandarizadas con los códigos que se mencionan en el archivo Manual para macroGeoQ_V1.4 - QGis3.18.docx_
+
+## Instalacion
+El complemento esta diseñado para corren en QGis (versión 3.18 en adelante). Por el momento no se encuentra en el repositorio oficial del software, por tal razón se debe descargar el contenido del repositorio Github, comprimido en ZIP (en la esquina superior derecha seleccionar Code – Download ZIP).
+Para instalar en complemento utilizando este archivo, se ingresar a el Administrados de complementos de QGis y dirigirse a la opción [Instalar a partir de ZIP](https://gis.stackexchange.com/questions/302196/downloading-and-saving-plugins-for-qgis-3-4)
+
+## Resultados
+Las casillas GeoQ y los Coeficientes, en la interfaz del complemento, se sugiere que se creen y nombren archivos para estos en el equipo, _de lo contrario se generaran capas temporales sin nombres relacionados al proceso_ en el proyecto de QGIs
