@@ -24,3 +24,6 @@ Para instalar en complemento utilizando este archivo, se ingresar a el Administr
 
 ## Resultados
 Las casillas GeoQ y los Coeficientes, en la interfaz del complemento, se sugiere que se creen y nombren archivos para estos en el equipo, _de lo contrario se generaran capas temporales sin nombres relacionados al proceso_ en el proyecto de QGIs
+
+## Menciones
+Este complemento se desarrollo en el marco de una beca doctoral del suministrada por [La Comisión de Investigaciones Científicas]( https://www.cic.gba.gob.ar/) de la provincia de Buenos Aires - Argentina, en el [Centro de Estudios Integrales de la Dinámica Exógena – UNLP]( https://ceide.unlp.edu.ar/), enfocada en la catedra de [Manejo Integral de Cuencas Hidrográficas]( http://maestriacuencashidrograficas.agro.unlp.edu.ar/), por el becario [Mg. Fabio Alejandro Montealegre Medina](https://ceide.unlp.edu.ar/personal/monteaelegre-medina-fabio-alejandro/) y dirigido por la [Dr. Fernanda Julia Gaspari](https://ceide.unlp.edu.ar/personal/dra-fernanda-julia-gaspari/)
