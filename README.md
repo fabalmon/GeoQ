@@ -16,7 +16,7 @@ Se requiere de un valor de precipitación medio en milímetros para la zona de e
 Capa vectorial de uso y cobertura del suelo
 Capa vectorial de grupo hidrológico del suelo
 
-_Las capas vectoriales debes están estandarizadas con los códigos que se mencionan en el archivo Manual para macroGeoQ_V1.4 - QGis3.18.docx_
+_Las capas vectoriales debes están estandarizadas con los códigos que se mencionan en el archivo Manual complemento GeoQ.docx_
 
 ## Instalacion
 El complemento esta diseñado para corren en QGis (versión 3.18 en adelante). Por el momento no se encuentra en el repositorio oficial del software, por tal razón se debe descargar el contenido del repositorio Github, comprimido en ZIP (en la esquina superior derecha seleccionar Code – Download ZIP).
