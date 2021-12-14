@@ -66,7 +66,7 @@ class GeoQPlugin(object):
         icon = os.path.join(os.path.join(cmd_folder, 'logo-mich.png'))
         self.action = QAction(
             QIcon(icon),
-            u"GeoQ V1.4", self.iface.mainWindow())
+            u"GeoQ", self.iface.mainWindow())
         self.action.triggered.connect(self.run)
         self.iface.addPluginToMenu(u"&GeoQ", self.action)
         self.iface.addToolBarIcon(self.action)
