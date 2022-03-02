@@ -7,7 +7,7 @@ name=GeoQ
 qgisMinimumVersion=3.0
 description=Complemento para el modelado de escorrentía superficial
 version=1.4
-author=Fabio Alejandro Montealegre - Fernanda Julia Gaspari / CEIDE-UNLP-CIC
+author=Fabio Alejandro Montealegre and Fernanda Julia Gaspari (CEIDE-UNLP-CIC)
 email=fabio.montealegre@agro.unlp.edu.ar
 
 about=GeoQ: Automatización del procesamiento de cálculo de la escorrentía superficial bajo entorno SIG
