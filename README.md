@@ -1,5 +1,5 @@
 # GeoQ
-Automatización del procesamiento de cálculo de la escorrentía superficial bajo entorno S.I.G. en QGis 3.18®.
+Automatización del procesamiento de cálculo de la escorrentía superficial bajo entorno QGis 3.18®.
 
 ## Descripción
 La modelización de fenómenos hidrológicos permite calcular o cuantificar la cantidad de precipitación de una tormenta que se infiltra o escurre superficialmente, teniendo en cuenta sus características de uso y cobertura del suelo y textura edáfica. GeoQ realiza esta modelación implementado la metodología del Número de Curva (NC) del Soil Conservation Service.
