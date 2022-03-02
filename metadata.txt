@@ -13,7 +13,7 @@ email=fabio.montealegre@agro.unlp.edu.ar
 about=GeoQ: Automatización del procesamiento de cálculo de la escorrentía superficial bajo entorno SIG
 
 tracker=https://github.com/fabalmon/GeoQ.git
-repository=https://github.com/fabalmon/GeoQ.git
+repository=https://github.com/fabalmon/GeoQ
 # End of mandatory metadata
 
 # Recommended items:
