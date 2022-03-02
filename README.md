@@ -18,6 +18,8 @@ Capa vectorial de grupo hidrológico del suelo
 
 _Las capas vectoriales debes están estandarizadas con los códigos que se mencionan en el archivo Manual complemento GeoQ.docx_
 
+Si desea realizar alguna prueba del complemento con datos estandarizados, el archivo Test_data.zip contiene capas vectoriales en formato GeoPackage de suelos y vegetación pertenecientes a la cuenca del río Napaleufou, ubicada en la provincia de Buenos Aires - Argentina.
+
 ## Instalacion
 El complemento esta diseñado para corren en QGis (versión 3.18 en adelante). Por el momento no se encuentra en el repositorio oficial del software, por tal razón se debe descargar el contenido del repositorio Github, comprimido en ZIP (en la esquina superior derecha seleccionar Code – Download ZIP).
 Para instalar en complemento utilizando este archivo, se ingresar a el Administrados de complementos de QGis y dirigirse a la opción [Instalar a partir de ZIP](https://gis.stackexchange.com/questions/302196/downloading-and-saving-plugins-for-qgis-3-4)
