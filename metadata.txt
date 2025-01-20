@@ -1,0 +1,48 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=GeoQ V2
+qgisMinimumVersion=3.0
+description=Automatización del procesamiento de cálculo de la escorrentía superficial con el método de Número de Curva 
+version=2.8
+author=Fabio Alejandro Montealegre Medina- Fernanda Julia Gaspari
+email=fabio.montealegre@agro.unlp.edu.ar
+
+about=La modelización de fenómenos hidrológicos permite calcular o cuantificar la cantidad de precipitación de una tormenta que se infiltra o escurre superficialmente, teniendo en cuenta sus características de uso y cobertura del suelo y textura edáfica. GeoQ realiza esta modelación implementado la metodología del Número de Curva (NC) del Soil Conservation Service.
+
+tracker=https://github.com/fabalmon/GeoQ
+repository=https://github.com/fabalmon/GeoQ
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=yes
+# Uncomment the following line and add your changelog:
+changelog=Se adicionó la posibilidad de incorporar una capa vectorial que representa el límite del área de estudio. Se incorporo la posibilidad de ingresar un valor de tormenta o evento pluvial en formato numérico y en formato de grilla ráster. Se permite seleccionar la condición de humedad antecedente a modelar. Se incluyo la simbología para los resultados de los coeficientes y del número de curva. No se calcula la superficie de cada registro resultado en GeoQ.
+
+
+# Tags are comma separated with spaces allowed
+tags=GeoQ, runoff, vector, shapefile, polygon, land cover, intersection, flood, calculator
+
+homepage=https://github.com/fabalmon/GeoQ
+category=Analysis
+icon=icon.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=Vector
+
+# If the plugin can run on QGIS Server.
+server=False
+
