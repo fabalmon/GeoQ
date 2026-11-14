@@ -1,0 +1,73 @@
+# Controles automáticos de GeoQ en cada cambio:
+#  - los mismos análisis que hace plugins.qgis.org al subir una versión
+#    (Bandit, detect-secrets y Flake8);
+#  - las pruebas del complemento en QGIS 3 y QGIS 4;
+#  - el ZIP instalable, que queda como "artifact" de la ejecución y se adjunta
+#    automáticamente a cada versión publicada en Releases.
+name: Pruebas
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  pull_request:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  calidad:
+    name: Seguridad, estilo y paquete
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar herramientas
+        run: pip install bandit detect-secrets flake8 pytest
+      - name: Bandit (bloquea la publicación en QGIS)
+        run: bandit -r geoq
+      - name: detect-secrets (bloquea la publicación en QGIS)
+        run: |
+          detect-secrets scan --all-files geoq > secretos.json
+          python -c "import json, sys; r = json.load(open('secretos.json'))['results']; print(r); sys.exit(1 if r else 0)"
+      - name: Flake8
+        run: flake8 geoq tests scripts
+      - name: Pruebas de tablas y fórmulas
+        run: python -m pytest tests/test_numero_curva.py
+      - name: Armar el ZIP
+        run: |
+          python scripts/empaquetar.py
+          mkdir paquete && unzip -q dist/GeoQ-main.zip -d paquete
+      - name: Guardar el ZIP instalable
+        uses: actions/upload-artifact@v4
+        with:
+          name: GeoQ-main
+          path: paquete
+      - name: Adjuntar el ZIP a la versión publicada
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/GeoQ-main.zip --clobber
+
+  qgis:
+    name: Pruebas en QGIS ${{ matrix.qgis }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        qgis: ['3.34', 'ltr', 'stable']
+    container:
+      image: qgis/qgis:${{ matrix.qgis }}
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+      - name: Versión de QGIS
+        run: python3 -c "from qgis.core import Qgis; from qgis.PyQt.QtCore import QT_VERSION_STR; print('QGIS', Qgis.QGIS_VERSION, '- Qt', QT_VERSION_STR)"
+      - name: Pruebas del complemento
+        run: python3 -m pytest tests -p no:cacheprovider

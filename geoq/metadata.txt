@@ -1,0 +1,38 @@
+[general]
+name=GeoQ
+qgisMinimumVersion=3.34
+qgisMaximumVersion=4.99
+description=Automatización del procesamiento de cálculo de la escorrentía superficial con el método de Número de Curva
+version=2.9
+author=Fabio Alejandro Montealegre Medina- Fernanda Julia Gaspari
+email=fabio.montealegre@agro.unlp.edu.ar
+
+about=La modelización de fenómenos hidrológicos permite calcular o cuantificar la cantidad de precipitación de una tormenta que se infiltra o escurre superficialmente, teniendo en cuenta sus características de uso y cobertura del suelo y textura edáfica. GeoQ realiza esta modelación implementado la metodología del Número de Curva (NC) del Soil Conservation Service.
+    Datos de entrada: límite del área de estudio, capa de grupo hidrológico de suelos, capa de cobertura vegetal y uso del suelo, y la precipitación del evento como valor único (mm) o como ráster. No requiere bibliotecas adicionales.
+
+tracker=https://github.com/fabalmon/GeoQ/issues
+repository=https://github.com/fabalmon/GeoQ
+homepage=https://github.com/fabalmon/GeoQ
+
+hasProcessingProvider=yes
+tags=GeoQ, runoff, curve number, hydrology, vector, polygon, land cover, intersection, flood, calculator, escorrentía, número de curva
+category=Analysis
+icon=icon.png
+experimental=False
+deprecated=False
+server=False
+
+changelog=2.9
+    - Compatible con QGIS 4 (Qt6) y QGIS 3 (desde 3.34).
+    - Corregidos los valores de Número de Curva de los códigos de cobertura 440 (grupos C y D, CHA II y III) y 550 (grupo D, CHA I, II y III).
+    - Se puede elegir el campo que contiene los códigos de suelo y de cobertura; el grupo hidrológico admite 1 a 4 o A a D.
+    - Mensajes claros cuando falta la precipitación, se cargan dos, o hay códigos que no figuran en las tablas.
+    - CHA II por defecto. Los resultados se generan como capas temporales con su nombre y simbología, y se pueden volver a ejecutar sin cerrar las capas anteriores.
+    - Resumen en el registro: superficie, NC ponderado, escorrentía media y volumen escurrido.
+    - Nueva herramienta "Tabla de códigos y Número de Curva".
+    - El límite del área de estudio admite polígonos multiparte y se corrigen las geometrías inválidas de las capas de entrada.
+    - Con precipitación ráster solo se procesan los píxeles del área de estudio.
+    - El botón de la barra de herramientas abre GeoQ. Ya no se necesita la biblioteca pandas.
+    - Se eliminaron los archivos de la plantilla que no se usaban.
+    2.8
+    - Se adicionó la posibilidad de incorporar una capa vectorial que representa el límite del área de estudio. Se incorporó la posibilidad de ingresar un valor de tormenta o evento pluvial en formato numérico y en formato de grilla ráster. Se permite seleccionar la condición de humedad antecedente a modelar. Se incluyó la simbología para los resultados de los coeficientes y del número de curva.
