@@ -95,9 +95,12 @@ def test_balance_casos_limite():
     io = nc.balance(77, 80.1)['Io']
     b = nc.balance(77, io)
     assert (b['Q'], b['F'], b['CE'], b['CF'], b['CIo']) == (0, 0, 0, 0, 100)
-    # Sin lluvia no hay división por cero.
+    # Sin lluvia no hay nada que repartir: todo vale 0, salvo S e Io, que
+    # son propiedades del suelo y la cobertura.
     b = nc.balance(77, 0)
-    assert (b['Q'], b['CE'], b['CF']) == (0, 0, 0)
+    assert (b['Q'], b['F'], b['CE'], b['CF'], b['CIo']) == (0, 0, 0, 0, 0)
+    assert b['S'] == pytest.approx(75.8701, abs=1e-4)
+    assert b['Io'] == pytest.approx(15.1740, abs=1e-4)
     # NC 100 (agua o superficie impermeable): escurre toda la lluvia.
     b = nc.balance(100, 50)
     assert b['S'] == 0 and b['Q'] == pytest.approx(50)

@@ -213,12 +213,19 @@ def balance(nc, pp):
     :returns: diccionario con S, Io, Q y F en mm, y los coeficientes CIo, CE
         y CF en porcentaje de la precipitación (CIo + CE + CF = 100).
 
+    S e Io dependen solo del Número de Curva (son la capacidad de retención
+    del complejo suelo-cobertura), por lo que se informan siempre.
+
     Si la precipitación no supera las abstracciones iniciales (PP <= Io) no
-    hay escorrentía ni infiltración: Q = F = 0 y CIo = 100.
+    hay escorrentía ni infiltración: Q = F = 0 y toda la lluvia queda
+    retenida (CIo = 100). Si no hay lluvia (PP = 0) no hay nada que repartir
+    y los tres coeficientes valen 0.
     """
     s = 254.0 * (100.0 / nc - 1.0)
     io = 0.2 * s
-    if pp <= io:
+    if pp <= 0:
+        q = f = ce = cf = cio = 0.0
+    elif pp <= io:
         q = f = ce = cf = 0.0
         cio = 100.0
     else:

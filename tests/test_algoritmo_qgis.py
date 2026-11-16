@@ -79,8 +79,8 @@ def _cambio_esperado(clave, campo, antes):
     # Valores de Número de Curva corregidos en la versión 2.9
     if cod_nc in ('443', '444', '554'):
         return True
-    # Con lluvia 0 la versión 2.8 dejaba CE vacío; ahora vale 0
-    return float(pp) == 0 and campo == 'CE' and antes is None
+    # Con lluvia 0 la versión 2.8 dejaba CE vacío y CIo en 100; ahora valen 0
+    return float(pp) == 0 and campo in ('CE', 'CIo')
 
 
 @pytest.mark.parametrize('caso', sorted(CASOS))
@@ -121,6 +121,12 @@ def test_coeficientes_suman_100(qgis, datos):
     nombres = capa.fields().names()
     for entidad in capa.getFeatures():
         a = dict(zip(nombres, entidad.attributes()))
+        if a['PP(mm)'] == 0:
+            # sin lluvia no hay reparto: todo en 0, salvo S e Io
+            assert (a['Q(mm)'], a['F(mm)'], a['CE'], a['CF'], a['CIo']) == (
+                0, 0, 0, 0, 0)
+            assert a['Io'] > 0 or a['NC'] == 100
+            continue
         assert a['CE'] + a['CF'] + a['CIo'] == pytest.approx(100, abs=0.02)
         assert a['Q(mm)'] + a['F(mm)'] <= a['PP(mm)'] + 0.02
 
@@ -258,7 +264,7 @@ def test_estilos(qgis, datos):
         ruta = os.path.join(CARPETA, 'estilos', estilo)
         assert os.path.isfile(ruta)
         capa = resultado[parametro]
-        AplicarEstilo.para(ruta).postProcessLayer(capa, None, None)
+        AplicarEstilo(ruta).postProcessLayer(capa, None, None)
         assert capa.renderer().type() == 'graduatedSymbol'
         assert capa.renderer().classAttribute() == campo
 
@@ -304,3 +310,29 @@ def test_complemento_se_carga(qgis):
     assert interfaz.addToolBarIcon.call_count == 1
     complemento.unload()
     assert interfaz.removePluginMenu.call_count == 2
+
+
+def test_ejecutar_dos_veces_cargando_resultados(qgis, datos):
+    """Se puede volver a ejecutar en el mismo proyecto (capas con estilo).
+
+    Reproduce el uso desde la interfaz: los resultados se cargan en el
+    proyecto y QGIS les aplica la simbología al terminar.
+    """
+    import processing
+    from qgis.core import QgsProject
+
+    proyecto = QgsProject.instance()
+    try:
+        for vuelta in (1, 2, 3):
+            resultado = processing.runAndLoadResults(
+                ALGORITMO, _parametros(datos, pp=80.1))
+            for salida, campo in (('NC', 'NC'), ('CE', 'CE'), ('CF', 'CF'),
+                                  ('CIO', 'CIo')):
+                capa = proyecto.mapLayer(resultado[salida])
+                assert capa is not None, (vuelta, salida)
+                assert capa.featureCount() > 0
+                assert capa.renderer().type() == 'graduatedSymbol'
+                assert capa.renderer().classAttribute() == campo
+            assert proyecto.mapLayer(resultado['GEOQ']).featureCount() > 0
+    finally:
+        proyecto.clear()

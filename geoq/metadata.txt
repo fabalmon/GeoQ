@@ -27,6 +27,7 @@ changelog=2.9
     - Corregidos los valores de Número de Curva de los códigos de cobertura 440 (grupos C y D, CHA II y III) y 550 (grupo D, CHA I, II y III).
     - Se puede elegir el campo que contiene los códigos de suelo y de cobertura; el grupo hidrológico admite 1 a 4 o A a D.
     - Mensajes claros cuando falta la precipitación, se cargan dos, o hay códigos que no figuran en las tablas.
+    - Donde la lluvia es 0 (píxeles sin precipitación), Q, F y los coeficientes CE, CF y CIo valen 0.
     - CHA II por defecto. Los resultados se generan como capas temporales con su nombre y simbología, y se pueden volver a ejecutar sin cerrar las capas anteriores.
     - Resumen en el registro: superficie, NC ponderado, escorrentía media y volumen escurrido.
     - Nueva herramienta "Tabla de códigos y Número de Curva".

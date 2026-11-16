@@ -8,6 +8,7 @@ CEIDE - UNLP - CIC. Licencia GNU GPL versión 2 o posterior.
 import math
 import os
 
+from qgis.PyQt import sip
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.core import (
@@ -69,21 +70,26 @@ def _a_numero(valor):
 
 
 class AplicarEstilo(QgsProcessingLayerPostProcessorInterface):
-    """Carga un archivo de estilo .qml cuando la capa se agrega al proyecto."""
+    """Carga un archivo de estilo .qml cuando la capa se agrega al proyecto.
 
-    # Se guardan las instancias para que sigan existiendo cuando QGIS las
-    # utilice, una vez que el algoritmo ya terminó.
-    _instancias = {}
+    QGIS usa cada objeto una sola vez y luego lo elimina. Por eso se crea
+    uno nuevo para cada capa en cada ejecución (ver ``nuevo``) y se guarda
+    una referencia hasta que QGIS lo haya utilizado.
+    """
+
+    _pendientes = []
 
     def __init__(self, ruta_qml):
         super().__init__()
         self.ruta_qml = ruta_qml
 
     @classmethod
-    def para(cls, ruta_qml):
-        if ruta_qml not in cls._instancias:
-            cls._instancias[ruta_qml] = cls(ruta_qml)
-        return cls._instancias[ruta_qml]
+    def nuevo(cls, ruta_qml):
+        # Se descartan los que QGIS ya utilizó y eliminó en otras ejecuciones
+        cls._pendientes = [p for p in cls._pendientes if not sip.isdeleted(p)]
+        procesador = cls(ruta_qml)
+        cls._pendientes.append(procesador)
+        return procesador
 
     def postProcessLayer(self, layer, context, feedback):
         if isinstance(layer, QgsVectorLayer) and os.path.exists(self.ruta_qml):
@@ -201,6 +207,10 @@ class GeoQAlgorithm(QgsProcessingAlgorithm):
             'superficie, NC ponderado, escorrentía media y volumen '
             'escurrido.</li>'
             '</ul>'
+            '<p><b>S</b> e <b>Io</b> dependen solo del Número de Curva. Si la '
+            'lluvia no supera a Io, toda queda retenida (Q = F = 0 y '
+            'CIo = 100 %). Donde no llueve (PP = 0), Q, F y los tres '
+            'coeficientes valen 0.</p>'
             '<p>Los polígonos con códigos que no figuran en las tablas se '
             'conservan con los resultados vacíos y se listan en el '
             'registro.</p>'
@@ -460,7 +470,7 @@ class GeoQAlgorithm(QgsProcessingAlgorithm):
             resultados[parametro] = destino
             if context.willLoadLayerOnCompletion(destino):
                 detalles = context.layerToLoadOnCompletionDetails(destino)
-                detalles.setPostProcessor(AplicarEstilo.para(
+                detalles.setPostProcessor(AplicarEstilo.nuevo(
                     os.path.join(CARPETA, 'estilos', estilo)))
 
         # 6. Cálculo del Número de Curva y del balance, en una sola pasada
