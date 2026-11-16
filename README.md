@@ -68,7 +68,7 @@ Pruebas (con el Python de QGIS): `python -m pytest tests`
 
 ## Menciones
 
-Este complemento se desarrolló en el marco de una beca doctoral suministrada por la [Comisión de Investigaciones Científicas](https://www.cic.gba.gob.ar/) de la provincia de Buenos Aires - Argentina, en el [Centro de Estudios Integrales de la Dinámica Exógena – UNLP](https://ceide.unlp.edu.ar/), enfocada en la cátedra de [Manejo Integral de Cuencas Hidrográficas](http://maestriacuencashidrograficas.agro.unlp.edu.ar/), por el becario [Mg. Fabio Alejandro Montealegre Medina](https://ceide.unlp.edu.ar/personal/monteaelegre-medina-fabio-alejandro/) y dirigido por la [Dra. Fernanda Julia Gaspari](https://ceide.unlp.edu.ar/personal/dra-fernanda-julia-gaspari/).
+Este complemento se desarrolló en el marco de una beca doctoral suministrada por la [Comisión de Investigaciones Científicas](https://www.cic.gba.gob.ar/) de la provincia de Buenos Aires - Argentina, en el [Centro de Estudios Integrales de la Dinámica Exógena – UNLP](https://ceide.unlp.edu.ar/), enfocada en la cátedra de [Manejo Integral de Cuencas Hidrográficas](http://maestriacuencashidrograficas.agro.unlp.edu.ar/), por el [Dr. Fabio Alejandro Montealegre Medina](https://ceide.unlp.edu.ar/personal/monteaelegre-medina-fabio-alejandro/) y la [Dra. Fernanda Julia Gaspari](https://ceide.unlp.edu.ar/personal/dra-fernanda-julia-gaspari/).
 
 ## Licencia
 
